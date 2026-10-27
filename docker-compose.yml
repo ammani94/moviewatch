@@ -1,0 +1,73 @@
+services:
+  moviewatch_backend:
+    platform: linux/amd64
+    user: "1000:1000"
+    build:
+      context: ./backend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - MONGO_URI=mongodb://moviewatch_db:27017/mon-app
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - app-network
+    depends_on:
+      - moviewatch_db
+
+  moviewatch_frontend:
+    build: ./my-app
+    ports:
+    - "3000:3000"
+    volumes:
+      - ./my-app:/app
+      - /app/node_modules
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=development
+      - HOST=0.0.0.0
+
+  moviewatch_python_test:
+    platform: linux/amd64
+    user: "1000:1000"
+    build:
+      context: ./python
+      dockerfile: Dockerfile
+    container_name: moviewatch_python_test
+    volumes:
+      - ./python:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8000:8000"
+    depends_on:
+      - moviewatch_frontend
+    networks:
+      - app-network
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+    command: bash 
+
+
+  moviewatch_db:
+    image: mongo:6
+    platform: linux/amd64
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    command: mongod --bind_ip_all
+    networks:
+      - app-network
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
+
+networks:
+  app-network:
+    driver: bridge
