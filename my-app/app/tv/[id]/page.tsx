@@ -29,7 +29,7 @@ export default function TvDetailsPage() {
 
   useEffect(() => {
     const fetchTvDetails = async () => {
-      const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+      const apiKey = process.env.TMDB_API_KEY;
       const url = `https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}&language=fr-FR`;
 
       try {

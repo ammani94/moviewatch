@@ -16,7 +16,7 @@ export default function MoviesPage() {
 
   useEffect(() => {
     const fetchPopularMovies = async () => {
-      const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+      const apiKey = process.env.TMDB_API_KEY;
       const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=fr-FR`;
 
       try {
@@ -31,7 +31,7 @@ export default function MoviesPage() {
     };
 
     const fetchPopularTv = async () => {
-      const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+      const apiKey = process.env.TMDB_API_KEY;
       const url = `https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=fr-FR`;
 
       try {

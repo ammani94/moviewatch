@@ -12,7 +12,7 @@ export default function MovieDetailsPage() {
   const [error, setError] = useState(null);
   const [reply, setReply] = useState('');
   const { user,isAuthenticated, clearUser, userId } = useUserStore();
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const API_URL = process.env.API_URL;
 
   async function callMistralAPI(prompt: string): Promise<string> {
   const reponse = await fetch("/api/mistral", {

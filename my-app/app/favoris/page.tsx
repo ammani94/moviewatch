@@ -13,7 +13,7 @@ export default function FavorisPage() {
   const { user } = useUserStore();
 
   const fetchMovieDetails = async (tmdbId) => {
-    const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+    const apiKey = process.env.TMDB_API_KEY;
     console.log(apiKey);
     const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=fr-FR`;
 
@@ -31,7 +31,7 @@ export default function FavorisPage() {
   };
 
   const fetchTvDetails = async (tmdbId) => {
-    const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+    const apiKey = process.env.TMDB_API_KEY;
     const url = `https://api.themoviedb.org/3/tv/${tmdbId}?api_key=${apiKey}&language=fr-FR`;
 
     try {
